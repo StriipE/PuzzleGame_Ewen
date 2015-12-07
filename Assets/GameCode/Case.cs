@@ -18,18 +18,23 @@ public class Case {
     public Case(int x, int y)
     {
         GameObject newCase = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        newCase.transform.position = new Vector3(- x * 1.05f,- y * 1.05f, 0f);
-        this.posX = x;
-        this.posY = y;
-        this.type = TypeCase.empty;
+        newCase.transform.position = new Vector3(x * 1.05f,- y * 1.05f, 0f);
+        posX = x;
+        posY = y;
+        type = TypeCase.empty;
     }
 
     public Case(int x, int y, TypeCase type)
     {
         GameObject newCase = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        newCase.transform.position = new Vector3(- x * 1.05f,- y * 1.05f, 0f);
+        newCase.transform.position = new Vector3(x * 1.05f,- y * 1.05f, 0f);
         switch (type)
         {
+            case TypeCase.block :
+                {
+                    newCase.GetComponent<Renderer>().material.color = Color.yellow;
+                    break;
+                }
             case TypeCase.wall :
                 {
                     newCase.GetComponent<Renderer>().material.color = Color.red;
@@ -46,8 +51,8 @@ public class Case {
                     break;
                 }
         }
-        this.posX = x;
-        this.posY = y;
+        posX = x;
+        posY = y;
         this.type = type;
     }
 
@@ -57,6 +62,6 @@ public class Case {
 	
 	// Update is called once per frame
 	void Update () {
-	
+	    
 	}
 }

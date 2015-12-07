@@ -13,15 +13,24 @@ public class Player : MonoBehaviour, Controls {
 
     public void fireBlocks()
     {
-        throw new NotImplementedException();
+       int playerX = (int) Math.Round((player.transform.position.x) / 1.05f);
+       int blockY = checkFirstBlock(playerX);
+
+       Debug.Log(blockY);
+
+       if (blockY != Map.getMapY())
+           LevelReader.map[playerX, blockY + 1].type = TypeCase.block;
+       else
+           throw new InvalidOperationException("Impossible de tirer un bloc ici !");
+               
     }
 
     public void moveOnKeyPress(string s)
     {
-        if (string.Equals(s, "left") && this.player.transform.position.x > - (Map.getMapX() - 1) * 1.05f)
-            this.player.transform.position += new Vector3(-1.05f, 0, 0);
-        if (string.Equals(s, "right") && this.player.transform.position.x < 0)
-            this.player.transform.position += new Vector3(1.05f, 0, 0);
+        if (string.Equals(s, "left") && player.transform.position.x > 0)
+            player.transform.position += new Vector3(-1.05f, 0, 0);
+        if (string.Equals(s, "right") && player.transform.position.x < (Map.getMapX() - 1) * 1.05f)
+            player.transform.position += new Vector3(1.05f, 0, 0);
     }
 
     public void rotateOnKeyPress(string s)
@@ -29,12 +38,23 @@ public class Player : MonoBehaviour, Controls {
         throw new NotImplementedException();
     }
     
+    private int checkFirstBlock(int playerPos)
+    {
+        int blockY = -1;
+
+        for (int i = 0; i < Map.getMapY(); i++)
+        {
+            if (LevelReader.map[playerPos, i].type == TypeCase.block || LevelReader.map[playerPos, i].type == TypeCase.wall)
+                blockY = i; 
+        }
+        
+        return blockY;
+    }
     // Use this for initialization
     void Start () {
 		{
-            Debug.Log(Map.getMapX());
-            this.player = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-            this.player.transform.position = new Vector3(-(float)Math.Truncate((decimal)Map.getMapX() / 2) * 1.05f, -Map.getMapY() - 2, 0);
+            player = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            player.transform.position = new Vector3((float)Math.Truncate((decimal)Map.getMapX() / 2) * 1.05f, -Map.getMapY() - 2, 0);
         }
 	}
 	

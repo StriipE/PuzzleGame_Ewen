@@ -10,7 +10,8 @@ public class LevelReader {
 
     public TypeCase[,] allTypes { get; set; }
 
-   // public Case[,] map { get; set; }
+    public static Case[,] map { get; set; }
+
     // Reader des maps qui se trouvent dans le dossier Levels
     public LevelReader(int zone, int level)
     {
@@ -18,7 +19,7 @@ public class LevelReader {
             string levelName = "Assets\\Levels\\level" + zone + "-" + level + ".txt";
             System.IO.StreamReader file = new System.IO.StreamReader(levelName);
             parseMapSize(file); // Récupération de la taille de la map
-            this.allTypes = parseMapTypes(file);
+            allTypes = parseMapTypes(file);
             
             generateMap(); // Génération des cases de la map
         }
@@ -76,14 +77,15 @@ public class LevelReader {
 
     private void generateMap()
     {
+        Case[,] test = new Case[mapX, mapY];
         for (int y = 0; y < mapY; y++)
         {
             for (int x = 0; x < mapX; x++)
             {
-               // Debug.Log(this.allTypes[1, 1]);
-               new Case(x, y, this.allTypes[x,y]);
+                test[x,y] = new Case(x, y, allTypes[x,y]);
             }
         }
+        map = test;
     }
 
 	// Use this for initialization
