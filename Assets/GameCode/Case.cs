@@ -15,9 +15,11 @@ public class Case {
     public int posX { get; set; }
     public int posY { get; set; }
     public TypeCase type {get; set;}
+    public GameObject newCase;
+
     public Case(int x, int y)
     {
-        GameObject newCase = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        newCase = GameObject.CreatePrimitive(PrimitiveType.Cube);
         newCase.transform.position = new Vector3(x * 1.05f,- y * 1.05f, 0f);
         posX = x;
         posY = y;
@@ -26,34 +28,45 @@ public class Case {
 
     public Case(int x, int y, TypeCase type)
     {
-        GameObject newCase = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        newCase = GameObject.CreatePrimitive(PrimitiveType.Cube);
         newCase.transform.position = new Vector3(x * 1.05f,- y * 1.05f, 0f);
+        renderCase(type);
+        posX = x;
+        posY = y;
+        this.type = type;
+    }
+
+    public void renderCase(TypeCase type)
+    {
         switch (type)
         {
-            case TypeCase.block :
+            case TypeCase.block:
                 {
                     newCase.GetComponent<Renderer>().material.color = Color.yellow;
                     break;
                 }
-            case TypeCase.wall :
+            case TypeCase.wall:
                 {
                     newCase.GetComponent<Renderer>().material.color = Color.red;
                     break;
                 }
-            case TypeCase.target :
+            case TypeCase.target:
                 {
                     newCase.GetComponent<Renderer>().material.color = Color.cyan;
                     break;
                 }
-            case TypeCase.empty :
-            default :
+            case TypeCase.good:
                 {
+                    newCase.GetComponent<Renderer>().material.color = Color.green;
+                    break;
+                }
+            case TypeCase.empty:
+            default:
+                {
+                    newCase.GetComponent<Renderer>().material.color = Color.white;
                     break;
                 }
         }
-        posX = x;
-        posY = y;
-        this.type = type;
     }
 
     void Start () {
@@ -62,6 +75,6 @@ public class Case {
 	
 	// Update is called once per frame
 	void Update () {
-	    
-	}
+       
+    }
 }
