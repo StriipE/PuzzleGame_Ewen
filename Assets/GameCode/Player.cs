@@ -69,7 +69,40 @@ public class Player : MonoBehaviour, Controls {
 
     public void rotateOnKeyPress(string s)
     {
-        throw new NotImplementedException();
+        Case[,] temp = new Case[Map.getMapY(),Map.getMapX()];
+        if (string.Equals(s, "left") )
+        {
+            for (int j = 0; j < Map.getMapY(); j++)
+                for (int i = 0; i < Map.getMapX(); i++)
+                {
+                    temp[j, Map.getMapX() - i - 1] = LevelReader.map[i, j];
+                }
+
+            for (int j = 0; j < Map.getMapY(); j++)
+                for (int i = 0; i < Map.getMapX(); i++)
+                {
+                    LevelReader.map[i, j] = temp[i,j];
+                    LevelReader.map[i, j].moveCase(i, j);
+                    LevelReader.map[i, j].renderCase(LevelReader.map[i, j].type);
+                }
+
+        }
+        if (string.Equals(s, "right") )
+        {
+            for (int j = 0; j < Map.getMapY(); j++)
+                for (int i = 0; i < Map.getMapX(); i++)
+                {
+                    temp[Map.getMapX() - j - 1, i] = LevelReader.map[i, j];
+                }
+
+            for (int j = 0; j < Map.getMapY(); j++)
+                for (int i = 0; i < Map.getMapX(); i++)
+                {
+                    LevelReader.map[i, j] = temp[i, j];
+                    LevelReader.map[i, j].moveCase(i, j);
+                    LevelReader.map[i, j].renderCase(LevelReader.map[i, j].type);
+                }
+        }
     }
     
     // Méthode de recherche du premier bloc solide dans une colonne 

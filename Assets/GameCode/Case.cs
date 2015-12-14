@@ -69,6 +69,11 @@ public class Case {
         }
     }
 
+    public void moveCase(int x, int y)
+    {
+        newCase.transform.position = new Vector3(x * 1.05f, -y * 1.05f, 0f);
+    }
+
     void Start () {
 	    
 	}
