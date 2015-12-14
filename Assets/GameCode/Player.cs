@@ -5,7 +5,7 @@ using System;
 public class Player : MonoBehaviour, Controls {
 
     private GameObject player;
-    
+    private int nbBlocksLeft = 0;
     // Méthode pour récupérer les blocks
     public void catchBlocks()
     {
@@ -19,17 +19,21 @@ public class Player : MonoBehaviour, Controls {
             {
                 LevelReader.map[playerX, blockY].type = TypeCase.empty;
                 LevelReader.map[playerX, blockY].renderCase(TypeCase.empty);
+                nbBlocksLeft++;
             }
             else if (LevelReader.map[playerX, blockY].type == TypeCase.good) // Suppression d'un bloc sur une case target
             {
                 LevelReader.map[playerX, blockY].type = TypeCase.target;
                 LevelReader.map[playerX, blockY].renderCase(TypeCase.target);
+                nbBlocksLeft++;
             }
             else if (LevelReader.map[playerX, blockY].type == TypeCase.wall)
                 Debug.Log("Impossible de retirer un mur.");
         }
         else
             Debug.Log("Il n'y a pas de bloc à récupérer ici.");
+
+        Debug.Log("Il vous reste " + nbBlocksLeft + " blocs.");
     }
 
     // Méthode pour tirer les blocks
@@ -39,23 +43,31 @@ public class Player : MonoBehaviour, Controls {
        int playerX = (int) Math.Round((player.transform.position.x) / 1.05f);
        int blockY = checkFirstBlock(playerX);
 
-        // On ajoute le bloc logiquement et on l'affiche
-        if (blockY != -1 && (blockY + 1) != Map.getMapY() )
+        // Si le joueur a encore des blocs à tirer
+        if (nbBlocksLeft > 0)
         {
-            if (LevelReader.map[playerX, blockY + 1].type == TypeCase.empty) // Ajout d'un bloc sur une case vide
+            // On ajoute le bloc logiquement et on l'affiche
+            if (blockY != -1 && (blockY + 1) != Map.getMapY())
             {
-                LevelReader.map[playerX, blockY + 1].type = TypeCase.block;
-                LevelReader.map[playerX, blockY + 1].renderCase(TypeCase.block);
+                if (LevelReader.map[playerX, blockY + 1].type == TypeCase.empty) // Ajout d'un bloc sur une case vide
+                {
+                    LevelReader.map[playerX, blockY + 1].type = TypeCase.block;
+                    LevelReader.map[playerX, blockY + 1].renderCase(TypeCase.block);
+                }
+                else if (LevelReader.map[playerX, blockY + 1].type == TypeCase.target) // Ajout d'un bloc sur une case target
+                {
+                    LevelReader.map[playerX, blockY + 1].type = TypeCase.good;
+                    LevelReader.map[playerX, blockY + 1].renderCase(TypeCase.good);
+                }
+                nbBlocksLeft--;
             }
-            else if (LevelReader.map[playerX, blockY + 1].type == TypeCase.target) // Ajout d'un bloc sur une case target
-            {
-                LevelReader.map[playerX, blockY + 1].type = TypeCase.good;
-                LevelReader.map[playerX, blockY + 1].renderCase(TypeCase.good);
-            }
+            else
+                Debug.Log("Impossible de tirer un bloc ici !");
         }
         else
-            Debug.Log("Impossible de tirer un bloc ici !");
-               
+            Debug.Log("Vous n'avez plus de bloc à tirer");
+
+        Debug.Log("Il vous reste " + nbBlocksLeft + " blocs.");
     }
 
     // Gestion des déplacements à gauche/droite
@@ -124,6 +136,7 @@ public class Player : MonoBehaviour, Controls {
     // Use this for initialization
     void Start () {
 		{
+            nbBlocksLeft = LevelReader.nbTargets;
             player = GameObject.CreatePrimitive(PrimitiveType.Sphere);
             player.transform.position = new Vector3((float)Math.Truncate((decimal)Map.getMapX() / 2) * 1.05f, -Map.getMapY() - 2, 0);
         }

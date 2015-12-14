@@ -10,6 +10,7 @@ public class LevelReader {
 
     public TypeCase[,] allTypes { get; set; }
 
+    public static int nbTargets { get; set; }
     public static Case[,] map { get; set; }
 
     // Reader des maps qui se trouvent dans le dossier Levels
@@ -60,6 +61,7 @@ public class LevelReader {
                     case 'T':
                         {
                             arrayTypes[cpt, i] = TypeCase.target;
+                            nbTargets++;
                             break;
                         }
                     case 'E':
