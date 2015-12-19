@@ -6,6 +6,7 @@ public class Player : MonoBehaviour, Controls {
 
     private GameObject player;
     private int nbBlocksLeft = 0;
+    private int nbTargetsCovered = 0;
     // Méthode pour récupérer les blocks
     public void catchBlocks()
     {
@@ -25,6 +26,7 @@ public class Player : MonoBehaviour, Controls {
             {
                 LevelReader.map[playerX, blockY].type = TypeCase.target;
                 LevelReader.map[playerX, blockY].renderCase(TypeCase.target);
+                nbTargetsCovered--;
                 nbBlocksLeft++;
             }
             else if (LevelReader.map[playerX, blockY].type == TypeCase.wall)
@@ -34,6 +36,8 @@ public class Player : MonoBehaviour, Controls {
             Debug.Log("Il n'y a pas de bloc à récupérer ici.");
 
         Debug.Log("Il vous reste " + nbBlocksLeft + " blocs.");
+
+        
     }
 
     // Méthode pour tirer les blocks
@@ -58,6 +62,7 @@ public class Player : MonoBehaviour, Controls {
                 {
                     LevelReader.map[playerX, blockY + 1].type = TypeCase.good;
                     LevelReader.map[playerX, blockY + 1].renderCase(TypeCase.good);
+                    nbTargetsCovered++;
                 }
                 nbBlocksLeft--;
             }
@@ -66,6 +71,10 @@ public class Player : MonoBehaviour, Controls {
         }
         else
             Debug.Log("Vous n'avez plus de bloc à tirer");
+
+
+        if (nbBlocksLeft == 0 && nbTargetsCovered == LevelReader.nbTargets)
+            Debug.Log("Bravo tu es le gagnant du jeu !");
 
         Debug.Log("Il vous reste " + nbBlocksLeft + " blocs.");
     }

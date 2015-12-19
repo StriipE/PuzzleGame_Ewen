@@ -7,7 +7,7 @@ public class Map : MonoBehaviour {
 	private static int mapY;
 	// Use this for initialization
 	void Start () {
-        LevelReader reader = new LevelReader(1,1);
+        LevelReader reader = new LevelReader(1,2);
         setMapX(reader.mapX); setMapY(reader.mapY);
 	}
 	
