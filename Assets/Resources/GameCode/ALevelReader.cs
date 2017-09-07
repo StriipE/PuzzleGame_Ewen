@@ -2,31 +2,27 @@
 using System.Collections;
 using System.Text.RegularExpressions;
 
-public class LevelReader {
+public abstract class ALevelReader {
 
     // Paramètres stockant la taille de la map lue
     public int mapX { get; set; }
     public int mapY { get; set; }
-
     public TypeCase[,] allTypes { get; set; }
-
     public static int nbTargets { get; set; }
     public static Case[,] map { get; set; }
 
     // Reader des maps qui se trouvent dans le dossier Levels
-    public LevelReader(int zone, int level)
+    public ALevelReader(int zone, int level)
     {
         try {
-            string levelName = "Assets\\Levels\\level" + zone + "-" + level + ".txt";
+            string levelName = "Assets\\Resources\\Levels\\level" + zone + "-" + level + ".txt";
             System.IO.StreamReader file = new System.IO.StreamReader(levelName);
             parseMapSize(file); // Récupération de la taille de la map
             allTypes = parseMapTypes(file);
-            
-            generateMap(); // Génération des cases de la map
         }
         catch (System.Exception e)
         {
-            Debug.LogError("Le fichier de génération du niveau" + zone + "-" + level + "n'a pas été chargé\n" +
+            Debug.LogError("Le fichier de génération du niveau" + zone + "-" + level + " n'a pas été chargé\n" +
                             e.ToString());
         }
 
@@ -77,26 +73,6 @@ public class LevelReader {
         return arrayTypes;
     }
 
-    private void generateMap()
-    {
-        Case[,] test = new Case[mapX, mapY];
-        for (int y = 0; y < mapY; y++)
-        {
-            for (int x = 0; x < mapX; x++)
-            {
-                test[x,y] = new Case(x, y, allTypes[x,y]);
-            }
-        }
-        map = test;
-    }
+    public abstract void generateMap();
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 }

@@ -7,8 +7,8 @@ public class Map : MonoBehaviour {
 	private static int mapY;
 	// Use this for initialization
 	void Start () {
-        LevelReader reader = new LevelReader(1,2);
-        setMapX(reader.mapX); setMapY(reader.mapY);
+        Generator generator = new Generator(1,2);
+        setMapX(generator.mapX); setMapY(generator.mapY);
 	}
 	
 	// Update is called once per frame

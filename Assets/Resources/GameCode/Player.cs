@@ -16,20 +16,20 @@ public class Player : MonoBehaviour, Controls {
 
         if (blockY != -1)
         {
-            if (LevelReader.map[playerX, blockY].type == TypeCase.block) // Suppression d'un bloc sur une case vide
+            if (ALevelReader.map[playerX, blockY].type == TypeCase.block) // Suppression d'un bloc sur une case vide
             {
-                LevelReader.map[playerX, blockY].type = TypeCase.empty;
-                LevelReader.map[playerX, blockY].renderCase(TypeCase.empty);
+                ALevelReader.map[playerX, blockY].type = TypeCase.empty;
+                ALevelReader.map[playerX, blockY].renderCase(TypeCase.empty);
                 nbBlocksLeft++;
             }
-            else if (LevelReader.map[playerX, blockY].type == TypeCase.good) // Suppression d'un bloc sur une case target
+            else if (ALevelReader.map[playerX, blockY].type == TypeCase.good) // Suppression d'un bloc sur une case target
             {
-                LevelReader.map[playerX, blockY].type = TypeCase.target;
-                LevelReader.map[playerX, blockY].renderCase(TypeCase.target);
+                ALevelReader.map[playerX, blockY].type = TypeCase.target;
+                ALevelReader.map[playerX, blockY].renderCase(TypeCase.target);
                 nbTargetsCovered--;
                 nbBlocksLeft++;
             }
-            else if (LevelReader.map[playerX, blockY].type == TypeCase.wall)
+            else if (ALevelReader.map[playerX, blockY].type == TypeCase.wall)
                 Debug.Log("Impossible de retirer un mur.");
         }
         else
@@ -53,15 +53,15 @@ public class Player : MonoBehaviour, Controls {
             // On ajoute le bloc logiquement et on l'affiche
             if (blockY != -1 && (blockY + 1) != Map.getMapY())
             {
-                if (LevelReader.map[playerX, blockY + 1].type == TypeCase.empty) // Ajout d'un bloc sur une case vide
+                if (ALevelReader.map[playerX, blockY + 1].type == TypeCase.empty) // Ajout d'un bloc sur une case vide
                 {
-                    LevelReader.map[playerX, blockY + 1].type = TypeCase.block;
-                    LevelReader.map[playerX, blockY + 1].renderCase(TypeCase.block);
+                    ALevelReader.map[playerX, blockY + 1].type = TypeCase.block;
+                    ALevelReader.map[playerX, blockY + 1].renderCase(TypeCase.block);
                 }
-                else if (LevelReader.map[playerX, blockY + 1].type == TypeCase.target) // Ajout d'un bloc sur une case target
+                else if (ALevelReader.map[playerX, blockY + 1].type == TypeCase.target) // Ajout d'un bloc sur une case target
                 {
-                    LevelReader.map[playerX, blockY + 1].type = TypeCase.good;
-                    LevelReader.map[playerX, blockY + 1].renderCase(TypeCase.good);
+                    ALevelReader.map[playerX, blockY + 1].type = TypeCase.good;
+                    ALevelReader.map[playerX, blockY + 1].renderCase(TypeCase.good);
                     nbTargetsCovered++;
                 }
                 nbBlocksLeft--;
@@ -73,7 +73,7 @@ public class Player : MonoBehaviour, Controls {
             Debug.Log("Vous n'avez plus de bloc à tirer");
 
 
-        if (nbBlocksLeft == 0 && nbTargetsCovered == LevelReader.nbTargets)
+        if (nbBlocksLeft == 0 && nbTargetsCovered == ALevelReader.nbTargets)
             Debug.Log("Bravo tu es le gagnant du jeu !");
 
         Debug.Log("Il vous reste " + nbBlocksLeft + " blocs.");
@@ -96,15 +96,15 @@ public class Player : MonoBehaviour, Controls {
             for (int j = 0; j < Map.getMapY(); j++)
                 for (int i = 0; i < Map.getMapX(); i++)
                 {
-                    temp[j, Map.getMapX() - i - 1] = LevelReader.map[i, j];
+                    temp[j, Map.getMapX() - i - 1] = ALevelReader.map[i, j];
                 }
 
             for (int j = 0; j < Map.getMapY(); j++)
                 for (int i = 0; i < Map.getMapX(); i++)
                 {
-                    LevelReader.map[i, j] = temp[i,j];
-                    LevelReader.map[i, j].moveCase(i, j);
-                    LevelReader.map[i, j].renderCase(LevelReader.map[i, j].type);
+                    ALevelReader.map[i, j] = temp[i,j];
+                    ALevelReader.map[i, j].moveCase(i, j);
+                    ALevelReader.map[i, j].renderCase(ALevelReader.map[i, j].type);
                 }
 
         }
@@ -113,15 +113,15 @@ public class Player : MonoBehaviour, Controls {
             for (int j = 0; j < Map.getMapY(); j++)
                 for (int i = 0; i < Map.getMapX(); i++)
                 {
-                    temp[Map.getMapX() - j - 1, i] = LevelReader.map[i, j];
+                    temp[Map.getMapX() - j - 1, i] = ALevelReader.map[i, j];
                 }
 
             for (int j = 0; j < Map.getMapY(); j++)
                 for (int i = 0; i < Map.getMapX(); i++)
                 {
-                    LevelReader.map[i, j] = temp[i, j];
-                    LevelReader.map[i, j].moveCase(i, j);
-                    LevelReader.map[i, j].renderCase(LevelReader.map[i, j].type);
+                    ALevelReader.map[i, j] = temp[i, j];
+                    ALevelReader.map[i, j].moveCase(i, j);
+                    ALevelReader.map[i, j].renderCase(ALevelReader.map[i, j].type);
                 }
         }
     }
@@ -133,9 +133,9 @@ public class Player : MonoBehaviour, Controls {
 
         for (int i = 0; i < Map.getMapY(); i++)
         {
-            if (LevelReader.map[playerPos, i].type == TypeCase.block ||
-                LevelReader.map[playerPos, i].type == TypeCase.wall  ||
-                LevelReader.map[playerPos, i].type == TypeCase.good)
+            if (ALevelReader.map[playerPos, i].type == TypeCase.block ||
+                ALevelReader.map[playerPos, i].type == TypeCase.wall  ||
+                ALevelReader.map[playerPos, i].type == TypeCase.good)
                 blockY = i; 
         }
 
@@ -145,7 +145,7 @@ public class Player : MonoBehaviour, Controls {
     // Use this for initialization
     void Start () {
 		{
-            nbBlocksLeft = LevelReader.nbTargets;
+            nbBlocksLeft = ALevelReader.nbTargets;
             player = GameObject.CreatePrimitive(PrimitiveType.Sphere);
             player.transform.position = new Vector3((float)Math.Truncate((decimal)Map.getMapX() / 2) * 1.05f, -Map.getMapY() - 2, 0);
         }
