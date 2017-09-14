@@ -5,7 +5,7 @@ using System.Collections;
 public class ShowLevels : MonoBehaviour {
 
     private const int PREVIEW_X_OFFSET = -40;
-    private const int PREVIEW_Y_OFFSET = 370;
+    private const int PREVIEW_Y_OFFSET = 300;
     private const int PREVIEW_X_SPLITTER = 130;
     // Use this for initialization
     void Start () {
@@ -23,7 +23,6 @@ public class ShowLevels : MonoBehaviour {
         }
     }
 	
-
 	void Update () {
 	
 	}
