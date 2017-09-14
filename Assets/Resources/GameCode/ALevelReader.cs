@@ -40,6 +40,7 @@ public abstract class ALevelReader {
     private TypeCase[,] parseMapTypes(System.IO.StreamReader file)
     {
         TypeCase[,] arrayTypes = new TypeCase[mapX, mapY];
+        nbTargets = 0;
 
         for (int i = 0; i < mapY; i++)
         {

@@ -5,10 +5,12 @@ public class Map : MonoBehaviour {
 
 	private static int mapX;
 	private static int mapY;
+
 	// Use this for initialization
 	void Start () {
-        Generator generator = new Generator(1,2);
-        setMapX(generator.mapX); setMapY(generator.mapY);
+       Generator generator = new Generator(Gamedata.Stage, Gamedata.Level);
+       setMapX(generator.mapX);
+       setMapY(generator.mapY);
 	}
 	
 	// Update is called once per frame
