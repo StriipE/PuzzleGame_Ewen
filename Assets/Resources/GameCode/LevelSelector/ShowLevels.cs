@@ -16,7 +16,6 @@ public class ShowLevels : MonoBehaviour {
 
             levelPreview.GetComponent<LevelPreview>().setLevelPreviewPosition();
             levelPreview.GetComponent<LevelPreview>().setLevelPreviewTexture();
-
         }
     }
 	

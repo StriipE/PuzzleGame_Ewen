@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class LevelPreview : MonoBehaviour, IPointerClickHandler
 {
     private const int PREVIEW_X_OFFSET = -40;
-    private const int PREVIEW_Y_OFFSET = 300;
+    private static int PREVIEW_Y_OFFSET = Screen.height - 100;
     private const int PREVIEW_X_SPLITTER = 130;
 
     private GameObject canvas, gameData;
@@ -34,8 +34,10 @@ public class LevelPreview : MonoBehaviour, IPointerClickHandler
     // Stage and Level are used for graphical offsets
     public void setLevelPreviewPosition()
     {
-        this.transform.SetParent(this.canvas.transform);
-        this.transform.position = this.transform.position + new Vector3(Level * PREVIEW_X_SPLITTER + PREVIEW_X_OFFSET, PREVIEW_Y_OFFSET, 0);
+        this.transform.SetParent(this.canvas.transform, true);
+
+        this.transform.position = new Vector3(Level * PREVIEW_X_SPLITTER + PREVIEW_X_OFFSET, PREVIEW_Y_OFFSET, 0);
+
     }
 
     public void setLevelPreviewTexture()

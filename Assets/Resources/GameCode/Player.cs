@@ -35,9 +35,6 @@ public class Player : MonoBehaviour, Controls {
         else
             Debug.Log("Il n'y a pas de bloc à récupérer ici.");
 
-        Debug.Log("Il vous reste " + nbBlocksLeft + " blocs.");
-
-        
     }
 
     // Méthode pour tirer les blocks
@@ -76,7 +73,6 @@ public class Player : MonoBehaviour, Controls {
         if (nbBlocksLeft == 0 && nbTargetsCovered == ALevelReader.nbTargets)
             Debug.Log("Bravo tu es le gagnant du jeu !");
 
-        Debug.Log("Il vous reste " + nbBlocksLeft + " blocs.");
     }
 
     // Gestion des déplacements à gauche/droite
@@ -148,6 +144,7 @@ public class Player : MonoBehaviour, Controls {
             nbBlocksLeft = ALevelReader.nbTargets;
             player = GameObject.CreatePrimitive(PrimitiveType.Sphere);
             player.transform.position = new Vector3((float)Math.Truncate((decimal)Map.getMapX() / 2) * 1.05f, -Map.getMapY() - 2, 0);
+
         }
 	}
 	
@@ -179,5 +176,7 @@ public class Player : MonoBehaviour, Controls {
             catchBlocks();
         }
 
-	}
+        Gamedata.AvailableBlocks = nbBlocksLeft;
+        Gamedata.TargetBlocks = ALevelReader.nbTargets - nbTargetsCovered;
+    }
 }
