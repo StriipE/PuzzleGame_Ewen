@@ -20,7 +20,7 @@ public class Case {
     public Case(int x, int y)
     {
         newCase = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        newCase.transform.position = new Vector3(x * 1.05f,- y * 1.05f, 0f);
+        newCase.transform.position = new Vector3(x * 1.0f,- y * 1.0f, 0f);
         posX = x;
         posY = y;
         type = TypeCase.empty;
@@ -29,7 +29,7 @@ public class Case {
     public Case(int x, int y, TypeCase type)
     {
         newCase = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        newCase.transform.position = new Vector3(x * 1.05f,- y * 1.05f, 0f);
+        newCase.transform.position = new Vector3(x * 1.0f,- y * 1.0f, 0f);
         renderCase(type);
         posX = x;
         posY = y;
@@ -71,7 +71,7 @@ public class Case {
 
     public void moveCase(int x, int y)
     {
-        newCase.transform.position = new Vector3(x * 1.05f, -y * 1.05f, 0f);
+        newCase.transform.position = new Vector3(x * 1.0f, -y * 1.0f, 0f);
     }
 
     void Start () {

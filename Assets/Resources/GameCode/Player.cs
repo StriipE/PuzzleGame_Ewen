@@ -11,7 +11,7 @@ public class Player : MonoBehaviour, Controls {
     public void catchBlocks()
     {
         // On récupère la position du joueur et le premier block solide. 
-        int playerX = (int)Math.Round((player.transform.position.x) / 1.05f);
+        int playerX = (int)Math.Round((player.transform.position.x) / 1.0f);
         int blockY = checkFirstBlock(playerX);
 
         if (blockY != -1)
@@ -41,7 +41,7 @@ public class Player : MonoBehaviour, Controls {
     public void fireBlocks()
     {
        // On récupère la position du joueur et le premier block solide. 
-       int playerX = (int) Math.Round((player.transform.position.x) / 1.05f);
+       int playerX = (int) Math.Round((player.transform.position.x) / 1.0f);
        int blockY = checkFirstBlock(playerX);
 
         // Si le joueur a encore des blocs à tirer
@@ -79,9 +79,9 @@ public class Player : MonoBehaviour, Controls {
     public void moveOnKeyPress(string s)
     {
         if (string.Equals(s, "left") && player.transform.position.x > 0)
-            player.transform.position += new Vector3(-1.05f, 0, 0);
-        if (string.Equals(s, "right") && player.transform.position.x < (Map.getMapX() - 1) * 1.05f)
-            player.transform.position += new Vector3(1.05f, 0, 0);
+            player.transform.position += new Vector3(-1.0f, 0, 0);
+        if (string.Equals(s, "right") && player.transform.position.x < (Map.getMapX() - 1) * 1.0f)
+            player.transform.position += new Vector3(1.0f, 0, 0);
     }
 
     public void rotateOnKeyPress(string s)
@@ -143,7 +143,7 @@ public class Player : MonoBehaviour, Controls {
 		{
             nbBlocksLeft = ALevelReader.nbTargets;
             player = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-            player.transform.position = new Vector3((float)Math.Truncate((decimal)Map.getMapX() / 2) * 1.05f, -Map.getMapY() - 2, 0);
+            player.transform.position = new Vector3((float)Math.Truncate((decimal)Map.getMapX() / 2) * 1.0f, -Map.getMapY() - 2, 0);
 
         }
 	}

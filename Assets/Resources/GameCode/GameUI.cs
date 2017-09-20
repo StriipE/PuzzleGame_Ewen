@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameUI : MonoBehaviour
 {
@@ -25,6 +26,11 @@ public class GameUI : MonoBehaviour
     {
         availableBlocks.text = Gamedata.AvailableBlocks.ToString();
         targetBlocks.text = Gamedata.TargetBlocks.ToString();
+    }
+
+    public void levelSelectorButtonOnClick()
+    {
+        SceneManager.LoadScene("LevelSelection");
     }
 }
 
